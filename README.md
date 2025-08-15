@@ -62,4 +62,4 @@ Traffic_Sign/
 3. Run exploratory analysis: `jupyter notebook src/notebooks/exploratory_data_analysis.ipynb`
 
 ---
-*Project initiated and developed by Filopater Hany and Bassem Mohamed*
+*Project Initiated and Developed by Filopater Hany and Bassem Mohamed*

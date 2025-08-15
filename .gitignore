@@ -1,0 +1,43 @@
+# Data files - excluded due to large size
+data_/
+*.csv
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.raw
+
+# Model files
+*.pkl
+*.joblib
+*.h5
+*.onnx
+*.pt
+*.pth
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

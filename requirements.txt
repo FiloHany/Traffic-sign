@@ -1,0 +1,17 @@
+# This file lists the dependencies for the project.
+# kagglehub is a package that provides access to Kaggle datasets and competitions.
+kagglehub
+
+# notebook dependencies
+ipykernel
+jupyter
+
+
+# for data manipulation and analysis
+pandas
+seaborn
+matplotlib
+
+# formatting and linting tools
+flake8
+black

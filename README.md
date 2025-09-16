@@ -1,65 +1,139 @@
 # Traffic Sign Recognition System
 
 ## Project Overview
-A comprehensive machine learning project for traffic sign recognition and classification using deep learning techniques. This system aims to accurately identify and classify traffic signs from images to support autonomous driving and driver assistance systems.
+This project implements a Traffic Sign Recognition system using deep learning techniques. The system is designed to classify traffic signs from images, which is a critical component for autonomous driving systems and driver assistance technologies.
 
-## Current Progress
+## SOLID Principles Implementation
+The project has been refactored to follow SOLID principles:
 
-### ✅ Completed Components
+1. **Single Responsibility Principle (SRP)**
+   - Each class has a single responsibility
+   - Example: `TrafficSignDatasetLoader` is responsible only for loading data, while `ModelTrainer` is responsible only for training models
 
-#### 1. Project Structure & Setup
-- **Established modular project architecture** with dedicated directories for data, source code, and notebooks
-- **Environment configuration** with requirements.txt for dependency management
-- **Git repository initialization** with proper .gitignore configuration to exclude large data files
+2. **Open/Closed Principle (OCP)**
+   - Classes are open for extension but closed for modification
+   - Example: `PreprocessingPipeline` can be extended with new preprocessors without modifying its code
 
-#### 2. Data Infrastructure
-- **Data loading framework** implemented in `src/data/data_loader.py`
-- **Modular data package** structure with `src/data/__init__.py`
-- **Dataset organization** with Train.csv, Test.csv, and Meta.csv files properly structured
+3. **Liskov Substitution Principle (LSP)**
+   - Subtypes can be substituted for their base types
+   - Example: `TrafficSignCNN` and `TrafficSignResNet` can be used interchangeably where `IModel` is expected
 
-#### 3. Exploratory Data Analysis
-- **Comprehensive EDA notebook** created in `src/notebooks/exploratory_data_analysis.ipynb`
-- **Data visualization and statistical analysis** framework established
+4. **Interface Segregation Principle (ISP)**
+   - Clients should not be forced to depend on interfaces they do not use
+   - Example: Separate interfaces like `IDatasetDownloader`, `IDatasetLoader`, and `IDatasetInfo`
 
-#### 4. Development Environment
-- **Python-based development stack** configured
-- **Jupyter notebook integration** for interactive development
-- **Professional codebase structure** following Python best practices
+5. **Dependency Inversion Principle (DIP)**
+   - High-level modules depend on abstractions, not concrete implementations
+   - Example: `TrafficSignRecognitionApp` depends on interfaces like `IDatasetDownloader` and `ITrainer`
+
+## Completed Components
+- Project structure with SOLID principles
+- Data infrastructure (downloaders, loaders, interfaces)
+- Preprocessing pipeline with modular components
+- Model architecture with dependency injection
+- Training and evaluation modules
+- Visualization utilities
+- Example scripts
 
 ## Technical Stack
-- **Language**: Python 3.x
-- **Data Processing**: Pandas, NumPy
-- **Visualization**: Matplotlib, Seaborn
-- **Machine Learning**: Scikit-learn, TensorFlow/Keras (planned)
-- **Development**: Jupyter Notebooks, VS Code
-
-## Contributors
-
-### Lead Developers
-- **Filopater Hany**
-- **Bassem Mohamed**
-
-## Next Steps
-- [ ] Model architecture design and implementation
-- [ ] Training pipeline development
-- [ ] Model evaluation and optimization
-- [ ] Deployment strategy planning
+- Python 3.8+
+- TensorFlow/Keras for deep learning
+- NumPy, Pandas for data manipulation
+- Matplotlib, Seaborn for visualization
+- Scikit-learn for metrics and utilities
 
 ## Project Structure
 ```
 Traffic_Sign/
-├── data/                 # Dataset directory
-├── src/                  # Source code
-│   ├── data/            # Data processing modules
-│   └── notebooks/       # Jupyter notebooks for analysis
-├── requirements.txt     # Project dependencies
-└── README.md           # Project documentation
+├── Source/
+│   ├── data/                  # Dataset storage
+│   ├── examples/              # Example scripts
+│   ├── output/                # Output directory for models and plots
+│   ├── src/
+│   │   ├── data/              # Data handling modules
+│   │   │   ├── interfaces.py  # Data interfaces
+│   │   │   ├── dataset_downloader.py
+│   │   │   └── dataset_loader.py
+│   │   ├── models/            # Model architecture and training
+│   │   │   ├── interfaces.py  # Model interfaces
+│   │   │   ├── traffic_sign_model.py
+│   │   │   └── trainer.py
+│   │   ├── preprocess/        # Data preprocessing
+│   │   │   ├── interfaces.py  # Preprocessing interfaces
+│   │   │   └── preprocessor.py
+│   │   ├── utils/             # Utility functions
+│   │   │   ├── datetime_utils.py
+│   │   │   └── plot_utils.py
+│   │   ├── notebooks/         # Jupyter notebooks
+│   │   └── main.py            # Main application
+│   ├── requirements.txt       # Project dependencies
+│   └── README.md              # Project documentation
 ```
 
 ## Getting Started
-1. Clone the repository
-2. Install dependencies: `pip install -r requirements.txt`
-3. Run exploratory analysis: `jupyter notebook src/notebooks/exploratory_data_analysis.ipynb`
 
----
-*Project Initiated and Developed by Filopater Hany and Bassem Mohamed*
+### Prerequisites
+- Python 3.8 or higher
+- pip package manager
+
+### Installation
+1. Clone the repository
+2. Install dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+
+### Usage
+
+#### Training a Model
+```python
+from src.main import create_app
+
+# Create application with dependencies
+app = create_app()
+
+# Run the training pipeline
+results = app.run(
+    dataset_path="data/traffic_signs",
+    model_type="resnet",  # or "cnn"
+    epochs=25,
+    batch_size=128,
+    use_gpu=True,
+    use_augmentation=True
+)
+
+# Access results
+print(f"Test accuracy: {results['metrics']['accuracy']:.4f}")
+```
+
+Alternatively, run the example script:
+```
+python examples/train_model.py
+```
+
+#### Making Predictions
+```python
+import tensorflow as tf
+from src.models.trainer import ModelEvaluator
+from src.data.dataset_loader import TrafficSignDatasetLoader
+
+# Load model
+model = tf.keras.models.load_model("output/models/traffic_sign_model.h5")
+
+# Create evaluator
+evaluator = ModelEvaluator()
+
+# Make predictions
+predictions = evaluator.predict(model, X_test)
+```
+
+Alternatively, run the example script:
+```
+python examples/predict.py
+```
+
+## Contributors
+- Traffic Sign Recognition Team
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.

@@ -15,3 +15,14 @@ matplotlib
 # formatting and linting tools
 flake8
 black
+
+# machine learning libraries
+scikit-learn
+tensorflow
+keras
+
+
+# for downloading datasets
+requests
+# for handling file paths and directories
+pathlib
